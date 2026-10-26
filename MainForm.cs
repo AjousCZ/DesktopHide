@@ -105,11 +105,11 @@ internal sealed class MainForm : Form
         Controls.Add(scrollHost);
         var root = new TableLayoutPanel { Dock = DockStyle.Top, Height = 890, Padding = new Padding(22, 18, 22, 18), ColumnCount = 1, RowCount = 13, BackColor = BackColor };
         root.RowStyles.Add(new RowStyle(SizeType.Absolute, 40)); root.RowStyles.Add(new RowStyle(SizeType.Absolute, 18));
-        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 84)); root.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
-        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 26)); root.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
-        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 26)); root.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
-        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 26)); root.RowStyles.Add(new RowStyle(SizeType.Absolute, 410));
-        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 50)); root.RowStyles.Add(new RowStyle(SizeType.Absolute, 18));
+        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 80)); root.RowStyles.Add(new RowStyle(SizeType.Absolute, 48));
+        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 22)); root.RowStyles.Add(new RowStyle(SizeType.Absolute, 48));
+        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 22)); root.RowStyles.Add(new RowStyle(SizeType.Absolute, 46));
+        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 22)); root.RowStyles.Add(new RowStyle(SizeType.Absolute, 430));
+        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 46)); root.RowStyles.Add(new RowStyle(SizeType.Absolute, 18));
         root.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
         scrollHost.Controls.Add(root);
         var header = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 1, BackColor = Color.Transparent };
@@ -169,9 +169,9 @@ internal sealed class MainForm : Form
         saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 31)); saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 20));
         saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 37)); saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 27));
         saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 35)); saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 27));
-        saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 35)); saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 46));
-        saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 38)); saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 40));
-        saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 36)); saverCard.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+        saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 35)); saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 44));
+        saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 38)); saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 38));
+        saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 36)); saverCard.RowStyles.Add(new RowStyle(SizeType.Absolute, 40));
         saverBox = new ModernToggle { Text = "Spouštět spořič obrazovky", Checked = settings.ScreenSaverEnabled, ForeColor = Color.FromArgb(218, 225, 237), Dock = DockStyle.Fill };
         var saverSubtitle = new Label { Text = "Po určité době nečinnosti se spustí spořič obrazovky.", Dock = DockStyle.Fill, ForeColor = Color.FromArgb(151, 178, 215), Padding = new Padding(28, 0, 0, 0) };
         idleCombo = new ModernComboBox { Width = 205, Height = 34, Font = new Font("Segoe UI", 10F), Margin = Padding.Empty };
@@ -211,6 +211,8 @@ internal sealed class MainForm : Form
         saverCard.Controls.Add(saverBox, 0, 0); saverCard.Controls.Add(saverSubtitle, 0, 1); saverCard.Controls.Add(idleRow, 0, 2); saverCard.Controls.Add(darkenBox, 0, 3);
         saverCard.Controls.Add(dimRow, 0, 4); saverCard.Controls.Add(musicBox, 0, 5); saverCard.Controls.Add(musicRow, 0, 6); saverCard.Controls.Add(volumeRow, 0, 7); saverCard.Controls.Add(saverHotkeyRow, 0, 8);
         saverCard.Controls.Add(mediaPauseBox, 0, 9); saverCard.Controls.Add(wallpaperRow, 0, 10); saverCard.Controls.Add(wallpaperIntervalRow, 0, 11);
+        saverCard.Margin = Padding.Empty;
+        foreach (Control child in saverCard.Controls) child.Margin = Padding.Empty;
         saverSurface.Controls.Add(saverCard);
         root.Controls.Add(saverSurface, 0, 9);
         var footer = new FlowLayoutPanel { Dock = DockStyle.Fill, WrapContents = false, BackColor = Color.Transparent, Padding = new Padding(0, 5, 0, 0) };
@@ -218,9 +220,11 @@ internal sealed class MainForm : Form
         saverModeButton.Click += (_, _) => ToggleSaverMode();
         var uninstallButton = new ModernButton { Text = "Smazat aplikaci…", Width = 175, Height = 44, FillColor = Color.FromArgb(48, 32, 42), OutlineColor = Color.FromArgb(104, 52, 68), ForeColor = Color.FromArgb(255, 151, 161), Font = new Font("Segoe UI", 9.5F), CornerRadius = 15 };
         uninstallButton.Click += (_, _) => Uninstall();
+        saverModeButton.Margin = Padding.Empty; uninstallButton.Margin = Padding.Empty; footer.Padding = Padding.Empty;
         footer.Controls.Add(saverModeButton); footer.Controls.Add(uninstallButton);
         root.Controls.Add(footer, 0, 10);
-        root.Controls.Add(new Label { Text = "Desktop Hide v1.1.3                                      Vyvinuto Ajous Production", Dock = DockStyle.Fill, ForeColor = Color.FromArgb(132, 150, 177), Font = new Font("Segoe UI", 8.5F), TextAlign = ContentAlignment.MiddleCenter }, 0, 11);
+        root.Controls.Add(new Label { Text = "Desktop Hide v1.1.5                                      Vyvinuto Ajous Production", Dock = DockStyle.Fill, ForeColor = Color.FromArgb(132, 150, 177), Font = new Font("Segoe UI", 8.5F), TextAlign = ContentAlignment.MiddleCenter }, 0, 11);
+        foreach (Control child in root.Controls) child.Margin = Padding.Empty;
 
         saverBox.CheckedChanged += (_, _) => SaveSaverSettings();
         idleCombo.SelectedIndexChanged += (_, _) => SaveSaverSettings();
@@ -761,6 +765,8 @@ internal sealed class MainForm : Form
 
     private void ShowSettings() { ShowInTaskbar = true; Opacity = 1; Show(); WindowState = FormWindowState.Normal; Activate(); }
 }
+
+
 
 
 
