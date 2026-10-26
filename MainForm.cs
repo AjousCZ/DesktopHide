@@ -220,7 +220,7 @@ internal sealed class MainForm : Form
         uninstallButton.Click += (_, _) => Uninstall();
         footer.Controls.Add(saverModeButton); footer.Controls.Add(uninstallButton);
         root.Controls.Add(footer, 0, 10);
-        root.Controls.Add(new Label { Text = "Desktop Hide v1.1.2                                      Vyvinuto Ajous Production", Dock = DockStyle.Fill, ForeColor = Color.FromArgb(132, 150, 177), Font = new Font("Segoe UI", 8.5F), TextAlign = ContentAlignment.MiddleCenter }, 0, 11);
+        root.Controls.Add(new Label { Text = "Desktop Hide v1.1.3                                      Vyvinuto Ajous Production", Dock = DockStyle.Fill, ForeColor = Color.FromArgb(132, 150, 177), Font = new Font("Segoe UI", 8.5F), TextAlign = ContentAlignment.MiddleCenter }, 0, 11);
 
         saverBox.CheckedChanged += (_, _) => SaveSaverSettings();
         idleCombo.SelectedIndexChanged += (_, _) => SaveSaverSettings();
@@ -761,6 +761,7 @@ internal sealed class MainForm : Form
 
     private void ShowSettings() { ShowInTaskbar = true; Opacity = 1; Show(); WindowState = FormWindowState.Normal; Activate(); }
 }
+
 
 
 
