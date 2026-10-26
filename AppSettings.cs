@@ -32,8 +32,33 @@ internal static class SettingsStore
     private static readonly string FilePath = Path.Combine(DirectoryPath, "settings.json");
     public static AppSettings Load()
     {
-        try { return JsonSerializer.Deserialize<AppSettings>(File.ReadAllText(FilePath)) ?? new(); }
+        try
+        {
+            var settings = JsonSerializer.Deserialize<AppSettings>(File.ReadAllText(FilePath)) ?? new();
+            bool repaired = false;
+            if (!IsUsableHotkey(settings.HotkeyModifiers, settings.HotkeyKey))
+            {
+                settings.HotkeyKey = 0x13; // Pause
+                settings.HotkeyModifiers = 0;
+                repaired = true;
+            }
+            if (!IsUsableHotkey(settings.SaverHotkeyModifiers, settings.SaverHotkeyKey))
+            {
+                settings.SaverHotkeyKey = 0x53; // Ctrl+Alt+S
+                settings.SaverHotkeyModifiers = 0x0003;
+                repaired = true;
+            }
+            if (repaired) Save(settings);
+            return settings;
+        }
         catch { return new(); }
+    }
+
+    private static bool IsUsableHotkey(uint modifiers, uint key)
+    {
+        if (key is 0 or 0x03 or 0x10 or 0x11 or 0x12 or 0x5B or 0x5C or 0x7B) return false;
+        if ((modifiers & ~0x000F) != 0) return false;
+        return modifiers != 0 || key == 0x13 || key is >= 0x70 and <= 0x7A;
     }
     public static void Save(AppSettings value)
     {
