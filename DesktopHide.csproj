@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>DesktopHide</AssemblyName>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <Company>Ajous Production</Company>
     <Product>Desktop Hide</Product>
     <PublishSingleFile>true</PublishSingleFile>
@@ -22,4 +22,5 @@
     <EmbeddedResource Include="DesktopHideLogo.png" />
   </ItemGroup>
 </Project>
+
 
