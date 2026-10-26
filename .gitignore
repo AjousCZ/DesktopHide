@@ -4,4 +4,6 @@ publish/
 publish-*/
 *.user
 *.suo
+*.msi
+*.wixpdb
 
